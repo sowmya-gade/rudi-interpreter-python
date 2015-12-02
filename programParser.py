@@ -4,15 +4,7 @@
 import controlStatements as control
 import expressionParser as expression
 import IOStatements as io
-
-
-def evaluateTokenByToken(token, queue, variables):
-
-    # Switch case for the token
-
-    # You may have to update the variables as well after the evaluations
-    return variables
-
+import tokenParser as token
 
 def  evaluateLineByLine(program, variables):
 
