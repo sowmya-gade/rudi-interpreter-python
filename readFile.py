@@ -11,19 +11,20 @@ def parseInputFile(fileName):
     # TODO: Fill up code
 
     # Get each line in the file
-    with open(fileName) as f:
-        fileContent = f.readlines()
+    # with open(fileName) as f:
+    #     fileContent = f.readlines()
+    #
+    # lineIdx = 0
+    # for line in fileContent:
+    #     lineIdx = lineIdx + 1
+    #     if (not line):
+    #         continue
+    #     if(line.startswith('&') and lineIdx==1):
+    #         print('Error in Line 1:' + line)
+    #         line = line[1:]
+    #
+    #     if(line.startswith('&')):
 
-    lineIdx = 0
-    for line in fileContent:
-        lineIdx = lineIdx + 1
-        if (not line):
-            continue
-        if(line.startswith('&') and lineIdx==1):
-            print('Error in Line 1:' + line)
-            line = line[1:]
-
-        if(line.startswith('&')):
 
 
 
