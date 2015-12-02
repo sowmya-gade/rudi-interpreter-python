@@ -2,6 +2,8 @@
 # This file parses the program line by line
 
 import controlStatements as control
+import expressionParser as expression
+import IOStatements as io
 
 
 def evaluateTokenByToken(token, queue, variables):
