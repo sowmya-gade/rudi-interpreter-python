@@ -17,14 +17,14 @@ def  parseStructure(allLines):
     program = []
 
     # Each line is defined with - line and number
-    line = namedtuple('Line', 'line number')
+    #line = namedtuple('Line', 'line number')
 
     #TODO: Fill up with code
 
     # Check for the program keyword
-    if(allLines[0].lower()!="program"):
+    if(allLines[0].line.lower()!="program"):
         print("Error in line 1: " + allLines[0].line)
-        print("Keyword 'program' missing in the beginning of the the program")
+        print("Description: Keyword 'program' missing in the beginning of the the program")
 
     # Check for decs
     # for line in allLines:
