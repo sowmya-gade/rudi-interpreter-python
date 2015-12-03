@@ -16,8 +16,13 @@ def main(argv=None):
     # Read from a file
     allLines = read.parseInputFile(fileName)
 
+    # Check for an error
+    if not allLines:
+        return
+
     # Pass through structure parser
     program, variables = struct.parseStructure(allLines)
+
 
     # Pass through program parser
 
