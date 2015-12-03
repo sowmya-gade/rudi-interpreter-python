@@ -68,8 +68,8 @@ def parseInputFile(fileName):
     allLines = removeComments(allLines)
 
     # Unit Test - Print program
-    for line in allLines:
-        print(str(line.number) + ' ' + line.line)
+    # for line in allLines:
+    #     print(str(line.number) + ' ' + line.line)
 
     # Return all the lines in the program
     return allLines
