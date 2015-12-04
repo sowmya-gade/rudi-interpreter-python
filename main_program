@@ -22,6 +22,8 @@ def main(argv=None):
 
     # Pass through structure parser
     program, variables = struct.parseStructure(allLines)
+    if not program:
+        return
 
 
     # Pass through program parser
