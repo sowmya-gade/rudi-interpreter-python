@@ -18,13 +18,13 @@ def  parseStructure(allLines):
     # Get the program block
     program = getProgram(allLines)
 
-    # Unit Test - Print variables
-    for variable in variables:
-        print(variable.type + ' ' + variable.name)
-
-    # Unit Test - Print variables
-    for line in program:
-        print(str(line.number) + ' ' + line.line)
+    # # Unit Test - Print variables
+    # for variable in variables:
+    #     print(variable.type + ' ' + variable.name)
+    #
+    # # Unit Test - Print variables
+    # for line in program:
+    #     print(str(line.number) + ' ' + line.line)
 
     # Check if there are no lines in the program
     if not program:
