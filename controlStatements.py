@@ -7,7 +7,7 @@ from collections import namedtuple
 
 # Evaluates the program block with the 'if' statements
 def evaluateIf(queue, variables):
-
+	print "I am the mighty IfEvaluator. Why did you call me?"
     # Return the updated queue
     # You may have to update the variables as well after the evaluations
 
@@ -49,7 +49,7 @@ def evaluateIf(queue, variables):
 
 
 	# Get the expression between '(' and ')' 
-	ifExpression = ifLine(index1+1:index2)
+	ifExpression = ifLine[index1+1:index2]
 
 	# Send to expression parser, get
 	ifExpQ = deque([ifExpression])
@@ -87,7 +87,7 @@ def evaluateIf(queue, variables):
 	check = 'ELSE'
 	elseFlag = 0
 
-	if (expression==check)
+	if (expression==check):
 		elseFlag = 1
 		# Check for '['
 		# Get next line of the queue
@@ -112,26 +112,24 @@ def evaluateIf(queue, variables):
 	
 	# Evaluate the if block if verdict is true
 	if verdict is True: 
-		evaluateLineByLine(ifBlockQ, variables)
-	else if elseFlag==1
-		evaluateLineByLine(elseBlockQ, variables)
+		(_,variables) = evaluateLineByLine(ifBlockQ, variables)
+	elif elseFlag==1:
+		(_,variables) = evaluateLineByLine(elseBlockQ, variables)
 	
 	
 	
 	# Get the lines between '[' and ']' and send to. Throw error if brackets not present
 	
-
-    return queue, variables
-
+	return (queue, variables)
 
 # Evaluates the program block with the 'while' statements
 def evaluateWhile(queue, variables):
-
+	print "I am the mighty whileEvaluator. Why did you call me?"
     # Return the updated queue
     # You may have to update the variables as well after the evaluations
 
 	# Get the first element of the queue
-	Line = queue.popleft() #<TODO> Verify
+	Line = queue.popleft() 
 	
 	# Get the string from the tuple
 	whileLine = Line.line
@@ -140,8 +138,8 @@ def evaluateWhile(queue, variables):
 	whileLine = whileLine.upper()
 
 	# Check that it contains 'if'
-	check = "WHILE"
-	if check not in whileLine: #<TODO> How should I indicate this internal error 
+	# check = "WHILE"
+	# if check not in whileLine: 
 	
 
 	# Throw an error if line doesn't have '(' followed by ')'
@@ -163,7 +161,7 @@ def evaluateWhile(queue, variables):
 
 
 	# Get the expression between '(' and ')' 
-	whileExpression = whileLine(index1+1:index2)
+	whileExpression = whileLine[index1+1:index2]
 
 	# Send to expression parser to evaluate
 	whileExpQ = deque([whileExpression])
@@ -193,14 +191,11 @@ def evaluateWhile(queue, variables):
 		whileBlockQ.append(Line)
 		Line = queue.popleft()
 
-	while verdict==True
-		(status,variables) = evaluateLineByLine(whileBlockQ, variables) # <TODO> - check syntax to take multiple outputs
-		if status == False # TODO - should I print anything or will programParser print. Probably should still print
-
+	while verdict==True:
+		(_,variables) = evaluateLineByLine(whileBlockQ, variables) 
+		
 		# Send to expression parser to evaluate
 		whileExpQ = deque([whileExpression])
-		(evaluatedQ,variables) = evaluateExpression(whileExpQ,variables) # <TODO> - check syntax to take multiple outputs
+		(evaluatedQ,variables) = evaluateExpression(whileExpQ,variables) 
 		verdict = evaluatedQ.popleft()	
-
-
-    return queue, variables
+		return (queue, variables)
