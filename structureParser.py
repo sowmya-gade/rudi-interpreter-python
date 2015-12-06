@@ -36,7 +36,8 @@ def  parseStructure(allLines):
 # Check for the program keyword
 def checkForProgram(allLines):
 
-    if(allLines[0].line.lower()!="program"):
+
+    if(allLines[0].line.strip().lower()!="program"):
         print("Error in line 1: " + allLines[0].line)
         print("Description: Keyword 'program' missing at the beginning of the the program")
 
@@ -158,7 +159,7 @@ def  checkForEnd(allLines):
 
     Line = namedtuple('Line', 'line number')
 
-    if not allLines[-1].line.lower() == "end":
+    if not allLines[-1].line.strip().lower() == "end":
         print("Error in line " + str(allLines[-1].number) + ": " + allLines[-1].line)
         print("Description: No 'end' found for the program")
         allLines.append(Line(line="end", number=allLines[-1].number+1))
