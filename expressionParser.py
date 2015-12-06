@@ -14,7 +14,7 @@ def evaluateExpression(queue, variables):
     # No assignment equation
     if len(equation) == 1:
         print("Error in line " + str(currLine.number) + ": " + currLine.line)
-        print("Description: No assignment found for the token - " + currLine.line)
+        print("Description: Invalid assignment found for the token \"" + currLine.line + "\"")
         return queue, variables
 
     # More than one assignment
@@ -46,7 +46,7 @@ def evaluateExpression(queue, variables):
         # Check for an error
         if not variableFound:
             print("Error in line " + str(currLine.number) + ": " + currLine.line)
-            print("Description: Variable " + lhs + " does not exist")
+            print("Description: Variable \"" + lhs + "\" does not exist")
             return queue, variables
 
         # Check if variable is of string type
@@ -54,6 +54,28 @@ def evaluateExpression(queue, variables):
 
             # Get the rhs value
             rhs = equation[1].strip()
+
+            # Check if the initialization is with a variable
+            for i in range(len(variables)):
+                if rhs.upper() == variables[i].name:
+
+                    # Check if the variable is not of string type
+                    if variables[i].type == "INTEGER" and variables[i].type == "FLOAT":
+                        print("Error in line " + str(currLine.number) + ": " + currLine.line)
+                        print("Description: Invalid variable \"" + variables[i].name + "\" cannot be used to initialize variable of string type")
+                        return queue, variables
+
+                    # If the variable has a value field
+                    elif variables[i].value:
+                        value = variables[i].value
+                        variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=value,type=variables[lhsVariableIdx].type)
+                        return queue, variables
+
+                    # Uninitialized value is found
+                    else:
+                        print("Error in line " + str(currLine.number) + ": " + currLine.line)
+                        print("Description: \"" + variables[i].name + "\" has not been initialized with a value")
+                        return queue, variables
 
             # Check for quotes
             if rhs[0]=="\"" and rhs[-1]=="\"":
@@ -63,62 +85,8 @@ def evaluateExpression(queue, variables):
             # Invalid initialization error
             else:
                 print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                print("Description: Invalid initialization for variable of type string " + rhs)
+                print("Description: Invalid initialization \""+ rhs +"\" for variable of type string ")
                 return queue, variables
-
-        # For the integer and float type
-        elif(len(rhs)) == 1:
-
-            # Check if the rhs is a value
-            if isfloat(rhs[0]):
-
-                # Check if variable type is integer
-                if variables[lhsVariableIdx].type == "INTEGER":
-                    value = int(float(rhs[0]))
-                    variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=value,type=variables[lhsVariableIdx].type)
-                    return queue, variables
-
-                # Check if variable type is FLOAT
-                elif variables[lhsVariableIdx].type == "FLOAT":
-                    value = float(rhs[0])
-                    variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=value,type=variables[lhsVariableIdx].type)
-                    return queue, variables
-
-            # Check if rhs is a variable
-            else:
-                variableFound = False
-                for i in range(len(variables)):
-                    if rhs[0].upper() == variables[i].name:
-                        variableFound = True
-                        value = variables[i].value
-
-                        # Check if the variable is not of string type
-                        if variables[i].type == "STRING":
-                            print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                            print("Description: Invalid variable " + variables[i].name + " of string type cannot be assigned to " + lhs)
-                            return queue, variables
-
-                        # Check if the value has not been initialized
-                        elif not value:
-                            print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                            print("Description: Variable " + variables[i] + " is not initialized")
-                            return queue, variables
-
-                        # Assign initialized value to the lhs variable
-                        else:
-                            # Perform type conversion for int variables
-                            if variables[lhsVariableIdx].type == "INTEGER":
-                                    value = int(value)
-
-                            # Update the value of the variable
-                            variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=value,type=variables[lhsVariableIdx].type)
-                            return queue, variables
-
-                # Error if no variable is found
-                if not variableFound:
-                    print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                    print("Description: " + rhs[0] + " is not a valid assignment")
-                    return queue, variables
 
         # RHS is an equation
         else:
@@ -134,7 +102,7 @@ def evaluateExpression(queue, variables):
                         # Check if the variable is not of string type
                         if variables[i].type == "STRING":
                             print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                            print("Description: Invalid variable " + token + " of string type present in the equation")
+                            print("Description: Invalid variable \"" + token + "\" of string type present in the equation")
                             return queue, variables
 
                         # If the variable has a value field
@@ -146,7 +114,7 @@ def evaluateExpression(queue, variables):
                         # Uninitialized value is found
                         else:
                             print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                            print("Description: " + token + " has not been initialized with a value")
+                            print("Description: \"" + token + "\" has not been initialized with a value")
                             return queue, variables
 
                 # Check if the token is a number
@@ -184,7 +152,7 @@ def evaluateExpression(queue, variables):
                 # Invalid Token Error
                 else:
                     print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                    print("Description: " + token + " is an invalid token")
+                    print("Description: \"" + token + "\" is an invalid token")
                     return queue, variables
 
             # Convert the infix RHS expression to postfix notation
@@ -319,7 +287,7 @@ def  evaluatePostfix(postfixExpr, currLine):
                 error, result = performOperation(token,operand1,operand2)
                 if error:
                     print("Error in line " + str(currLine.number) + ": " + currLine.line)
-                    print("Description: Incorrect operator " + token)
+                    print("Description: Incorrect operator \"" + token + "\"")
                     break
 
                 # Push the result onto the stack
