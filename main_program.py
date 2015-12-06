@@ -2,7 +2,7 @@
 import sys
 import readFile as read
 import structureParser as struct
-import programParser as program
+import programParser as programParser
 
 def main(argv=None):
 
@@ -16,10 +16,18 @@ def main(argv=None):
     # Read from a file
     allLines = read.parseInputFile(fileName)
 
+    # Check for an error
+    if not allLines:
+        return
+
     # Pass through structure parser
     program, variables = struct.parseStructure(allLines)
+    if not program:
+        return
+
 
     # Pass through program parser
+    program, variables = programParser.evaluateLineByLine(program,variables)
 
 
     # Return error or success

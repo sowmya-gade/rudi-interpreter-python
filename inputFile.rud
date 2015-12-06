@@ -10,10 +10,11 @@ decs [
 
 begin
 
-	print “Enter the factorial term:”
+	print "Enter the factorial term:"
 	input n
 
 	if ( n :eq: 0 ) then
+
 	[
 		fact = 1
 	]
@@ -28,7 +29,7 @@ begin
 	]
 
 	print n
-	print “! = “
+	print "! = "
 	print fact
 
 end
