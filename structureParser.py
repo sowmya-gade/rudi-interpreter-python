@@ -18,6 +18,7 @@ def  parseStructure(allLines):
     # Get the program block
     program = getProgram(allLines)
 
+<<<<<<< HEAD
     # # Unit Test - Print variables
     # for variable in variables:
     #     print(variable.type + ' ' + variable.name)
@@ -25,6 +26,15 @@ def  parseStructure(allLines):
     # # Unit Test - Print variables
     # for line in program:
     #     print(str(line.number) + ' ' + line.line)
+=======
+    # Unit Test - Print variables
+    for variable in variables:
+        print(variable.type + ' ' + variable.name)
+
+    # Unit Test - Print variables
+    for line in program:
+        print(str(line.number) + ' ' + line.line)
+>>>>>>> refs/remotes/origin/Adam
 
     # Check if there are no lines in the program
     if not program:
