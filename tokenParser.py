@@ -6,8 +6,7 @@ import sys
 
 # This function parses the token - first 'word' in each line
 def evaluateTokenByToken(token, queue, variables):
-    print(token)
-    print(queue)
+
     # do what needs to be done according to what the token (first word) of the line is
     if token == "PRINT":
         #print("token is print")

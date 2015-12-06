@@ -47,7 +47,7 @@ def evaluateInput(queue, variables):
         for i in range(0, len(variables)):
             if variables[i].name == firstWord.upper():
                 while True:
-                    val = input("Enter new value for variable " + variables[i].name + ": ")
+                    val = input() #"Enter new value for variable " + variables[i].name + ": ")
                     if variables[i].type == "INTEGER":
                         try:
                             val = int(eval(val))
