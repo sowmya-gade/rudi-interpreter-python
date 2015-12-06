@@ -22,7 +22,7 @@ def  parseStructure(allLines):
     # for variable in variables:
     #     print(variable.type + ' ' + variable.name)
     #
-    # # Unit Test - Print variables
+    # # Unit Test - Print program
     # for line in program:
     #     print(str(line.number) + ' ' + line.line)
 

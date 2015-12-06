@@ -1,8 +1,8 @@
 
 import sys
-import readFile as read
-import structureParser as struct
-import programParser as program
+from readFile import parseInputFile
+from structureParser import parseStructure
+from programParser import evaluateLineByLine
 
 def main(argv=None):
 
@@ -14,17 +14,16 @@ def main(argv=None):
     fileName = 'inputFile.rud'
 
     # Read from a file
-    allLines = read.parseInputFile(fileName)
+    allLines = parseInputFile(fileName)
 
     # Check for an error
     if not allLines:
         return
 
     # Pass through structure parser
-    program, variables = struct.parseStructure(allLines)
+    program, variables = parseStructure(allLines)
     if not program:
         return
-
 
     # Pass through program parser
 
