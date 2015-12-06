@@ -4,10 +4,14 @@
 # Prof: Currently supports only control statements with '[' in next line with that as the only character in the line
 
 from collections import namedtuple
+from collections import deque
+
+from expressionParser import evaluateExpression
+import programParser
 
 # Evaluates the program block with the 'if' statements
 def evaluateIf(queue, variables):
-	print "I am the mighty IfEvaluator. Why did you call me?"
+	print ("I am the mighty IfEvaluator. Why did you call me?")
     # Return the updated queue
     # You may have to update the variables as well after the evaluations
 
@@ -16,6 +20,7 @@ def evaluateIf(queue, variables):
 	
 	# Get the string from the tuple
 	ifLine = Line.line
+	print ("ifLine: %s" %ifLine)
 
 	# Convert to upper case for case insensitivity
 	ifLineUp = ifLine.upper()
@@ -28,28 +33,29 @@ def evaluateIf(queue, variables):
 	# Throw an error if line doesn't have 'then'
 	check = "THEN"
 	if check not in ifLineUp:
-		print "In line %d: Keyword 'then' is missing." % (Line.number)
+		print ("In line %d: Keyword 'then' is missing." % (Line.number))
 
 	# Throw an error if line doesn't have '(' followed by ')'
 	# Check for '('
 	check = '('
 	if check not in ifLine:
-		print "In line %d: Syntax error. Opening bracket missing for the if condition expression" % (Line.number)
+		print ("In line %d: Syntax error. Opening bracket missing for the if condition expression" % (Line.number))
 	else:
 		index1 = ifLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in ifLine:
-		print "In line %d: Syntax error. Closing bracket missing for the if condition expression" % (Line.number)
+		print ("In line %d: Syntax error. Closing bracket missing for the if condition expression" % (Line.number))
 	else:
 		index2 = ifLine.index(check)
 	# Check the order
 	if index2<index1:
-		print "In line %d: Syntax error. Brackets incorrect for the if condition expression" % (Line.number)
+		print ("In line %d: Syntax error. Brackets incorrect for the if condition expression" % (Line.number))
 
 
 	# Get the expression between '(' and ')' 
 	ifExpression = ifLine[index1+1:index2]
+	print ("ifExpression: %s" %ifExpression)
 
 	# Send to expression parser, get
 	ifExpQ = deque([ifExpression])
@@ -65,7 +71,7 @@ def evaluateIf(queue, variables):
 	expression = Line.line
 	check = '['
 	if expression!=check:
-		print "In line %d: Syntax error. Opening bracket missing for the if condition block" % (Line.number)
+		print ("In line %d: Syntax error. Opening bracket missing for the if condition block" % (Line.number))
 	else:
 		qIndex1 = 0
 	
@@ -75,7 +81,7 @@ def evaluateIf(queue, variables):
 	while (Line.line!= check):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
-			print "In line %d: Syntax error. Closing bracket missing for the if condition block" % (Line.number)-1 #<TODO> Fix line number
+			print ("In line %d: Syntax error. Closing bracket missing for the if condition block" % (Line.number)-1)#<TODO> Fix line number
 			break
 		ifBlockQ.append(Line)
 		Line = queue.popleft()
@@ -95,7 +101,7 @@ def evaluateIf(queue, variables):
 		expression = Line.line
 		check = '['
 		if expression!=check:
-			print "In line %d: Syntax error. Opening bracket missing for the 'else' condition block" % (Line.number)
+			print ("In line %d: Syntax error. Opening bracket missing for the 'else' condition block" % (Line.number))
 		else:
 			qIndex1 = 0
 
@@ -105,7 +111,7 @@ def evaluateIf(queue, variables):
 		while (Line.line!= check):
 			# If ']' is not found till the end, throw an error
 			if ((Line.line).upper()== 'END'):
-				print "In line %d: Syntax error. Closing bracket missing for the else condition block" % (Line.number)-1 #<TODO> Fix line number
+				print ("In line %d: Syntax error. Closing bracket missing for the else condition block" % (Line.number)-1) #<TODO> Fix line number
 				break
 			elseBlockQ.append(Line)
 			Line = queue.popleft()
@@ -124,7 +130,7 @@ def evaluateIf(queue, variables):
 
 # Evaluates the program block with the 'while' statements
 def evaluateWhile(queue, variables):
-	print "I am the mighty whileEvaluator. Why did you call me?"
+	print ("I am the mighty whileEvaluator. Why did you call me?")
     # Return the updated queue
     # You may have to update the variables as well after the evaluations
 
@@ -146,18 +152,18 @@ def evaluateWhile(queue, variables):
 	# Check for '('
 	check = '('
 	if check not in whileLine:
-		print "In line %d: Syntax error. Opening bracket missing for the while condition expression" % (Line.number)
+		print ("In line %d: Syntax error. Opening bracket missing for the while condition expression" % (Line.number))
 	else:
 		index1 = whileLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in whileLine:
-		print "In line %d: Syntax error. Closing bracket missing for the while condition expression" % (Line.number)
+		print ("In line %d: Syntax error. Closing bracket missing for the while condition expression" % (Line.number))
 	else:
 		index2 = whileLine.index(check)
 	# Check the order
 	if index2<index1:
-		print "In line %d: Syntax error. Brackets incorrect for the while condition expression" % (Line.number)
+		print ("In line %d: Syntax error. Brackets incorrect for the while condition expression" % (Line.number))
 
 
 	# Get the expression between '(' and ')' 
@@ -176,7 +182,7 @@ def evaluateWhile(queue, variables):
 	expression = Line.line
 	check = '['
 	if expression!=check:
-		print "In line %d: Syntax error. Opening bracket missing for the while condition block" % (Line.number)
+		print ("In line %d: Syntax error. Opening bracket missing for the while condition block" % (Line.number))
 	else:
 		qIndex1 = 0
 	
@@ -186,7 +192,7 @@ def evaluateWhile(queue, variables):
 	while (Line.line!= check):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
-			print "In line %d: Syntax error. Closing bracket missing for the while condition block" % (Line.number)-1 #<TODO> Fix line number
+			print ("In line %d: Syntax error. Closing bracket missing for the while condition block" % (Line.number)-1) #<TODO> Fix line number
 			break
 		whileBlockQ.append(Line)
 		Line = queue.popleft()
