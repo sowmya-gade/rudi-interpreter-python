@@ -48,21 +48,21 @@ def evaluateInput(queue, variables):
             if variables[i].name == firstWord.upper():
                 while True:
                     val = input("Enter new value for variable " + variables[i].name + ": ")
-                    if variables[i].type == "integer":
+                    if variables[i].type == "INTEGER":
                         try:
                             val = int(eval(val))
                             variables[i] = variables[i]._replace(value = val)
                             break
                         except:
                             print("Error, input cannot be cast as an integer.")
-                    elif variables[i].type == "float":
+                    elif variables[i].type == "FLOAT":
                         try:
                             val = float(eval(val))
                             variables[i] = variables[i]._replace(value = val)
                             break
                         except:
                             print("Error, input cannot be cast as a float.")
-                    elif variables[i].type == "string":
+                    elif variables[i].type == "STRING":
                             variables[i] = variables[i]._replace(value = val)  #incoming value is already a string
                             break
                     else:

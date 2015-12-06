@@ -4,7 +4,7 @@ from collections import deque
 from tokenParser import evaluateTokenByToken
 import re
 
-def  evaluateLineByLine(program, variables):
+def evaluateLineByLine(program, variables):
     status = False
     queue = deque()
 
@@ -23,4 +23,4 @@ def  evaluateLineByLine(program, variables):
 
     # Return status - will be changed to false if stopped prematurely
     status = True
-    return status
+    return status, variables
