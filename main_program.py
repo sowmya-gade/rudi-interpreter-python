@@ -9,10 +9,10 @@ def main(argv=None):
     # Get the name of the input file from the command line
     if argv is None:
         argv = sys.argv
-    # TODO: Uncomment finally
+    # TODO Uncomment later
     # fileName = argv[1]
-    fileName = 'inputFile1.rud'
-    fileName = 'Rudi_Test_1.rud'
+    fileName = 'inputFile.rud'
+    # fileName = 'Rudi_Test_1.rud'
     
 	 
     # Read from a file

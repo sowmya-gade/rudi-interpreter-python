@@ -18,14 +18,14 @@ def  parseStructure(allLines):
     # Get the program block
     program = getProgram(allLines)
 
+	# <TODO> Remove
+    # Unit Test - Print variables
+    # for variable in variables:
+    #    print(variable.type + ' ' + variable.name)
 
     # Unit Test - Print variables
-    for variable in variables:
-        print(variable.type + ' ' + variable.name)
-
-    # Unit Test - Print variables
-    for line in program:
-        print(str(line.number) + ' ' + line.line)
+    # for line in program:
+    #    print(str(line.number) + ' ' + line.line)
 
     # Check if there are no lines in the program
     if not program:
@@ -110,7 +110,7 @@ def  checkForDecs(allLines):
                 break
 
             # Split line according to ' '
-            words = allLines[i].line.strip().split(' ')
+            words = allLines[i].line.strip().split()
 
             # If insufficient information is found
             if len(words) < 2:

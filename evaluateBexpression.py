@@ -2,45 +2,62 @@ from collections import namedtuple
 from expressionParser import doMath
 
 def evaluateBooleanExpression (expression, Line, variables):
-	# Split by OR
 	
-	expsOR = expression.split("|")
+	# Check for empty expression
+	if not expression:
+		print("Error in line " + str(Line.number) + ": " + Line.line)
+		print("Description: Invalid boolean expression")
+		return 0
+
+	# Call 'evaluateOR' for the expression		
+	(value,errorFlag) = evaluateOR(expression,Line,variables)
+		
+	if (errorFlag == 1):
+		return 0
+	else:	
+		return value
+		
+	
+def evaluateOR (exp,Line,variables):
+	# Split by OR	
+	expsOR = exp.split("|")
 
 	valueList = []
-	# Call 'evaluateAfterOR' for each element of the expsOR list and append the result to 'valueList'
+	# Call 'evaluateAND' for each element of the expsOR list and append the result to 'valueList'
 	for eachExp in expsOR:
 		if not eachExp:
 			print("Error in line " + str(Line.number) + ": " + Line.line)
 			print("Description: Invalid boolean expression")
-			return 0
+			return 0, 1
 			
-		(value,errorFlag) = evaluateAfterOR(eachExp,Line,variables)
-		# print ("OR:" + eachExp + "value:" + str(value))
+		(value,errorFlag) = evaluateAND(eachExp,Line,variables)
+		
 		if (errorFlag == 1):
-			return 0
+			return 0, 1
 		else:	
 			valueList.append(value)
 		
 	# Perform OR between elements of the valueList (even when list has only one element) 
 	for value in valueList:
 		if value != 0:
-			return 1
-	return 0	
+			return 1, errorFlag
+	return 0, errorFlag	
 
-def evaluateAfterOR (exp,Line,variables):
+
+def evaluateAND (exp,Line,variables):
 	# Split by AND
 	expsAND = exp.split("^") 
 
 	valueList = []
-	# Call 'evaluateAfterAND' for each element of the expsAND list and append the result to 'valueList'
+	# Call 'evaluateCondExp' for each element of the expsAND list and append the result to 'valueList'
 	for eachExp in expsAND:
 		if not eachExp:
 			print("Error in line " + str(Line.number) + ": " + Line.line)
 			print("Description: Invalid boolean expression")
 			return 0,1
 			
-		(value,errorFlag) = evaluateAfterAND(eachExp,Line,variables)
-		# print ("AND:" + eachExp + "value:" + str(value))
+		(value,errorFlag) = evaluateCondExp(eachExp,Line,variables)
+		
 		if (errorFlag == 1):
 			return 0, 1
 		else:	
@@ -53,7 +70,7 @@ def evaluateAfterOR (exp,Line,variables):
 	return 1, errorFlag
 
 	
-def evaluateAfterAND (exp,Line,variables):
+def evaluateCondExp (exp,Line,variables):
 	# Check for each possible comparison operator. Check for not operator and send the LHS and RHS to doMath. Throw error if less than 1 or greater than 2 components
 	valueList = []
 	counter = 0
@@ -244,6 +261,7 @@ def evaluateAfterAND (exp,Line,variables):
 
 	return result,errorFlag
 
+# <TODO> Remove later
 # Line = namedtuple('Line', 'line number')
 # expression = " 2 :gt: 3  "
 # Line.line = "if (blah) "

@@ -60,6 +60,8 @@ def evaluateIf(queue, variables):
 	# Check for any other garbage
 	# <TODO> string.replace
 
+	# TRack brackets within the if/while expressions 
+
 	
 	# CREATE IF BLOCK	
 	# Check for '['
@@ -219,7 +221,6 @@ def evaluateWhile(queue, variables):
 	whileExpression = whileLine[index1+1:index2]
 
 	# Send to expression parser to evaluate
-	# whileExpQ = deque([whileExpression])
 	verdict = evaluateBooleanExpression(whileExpression, Line, variables)
 	
 	# CREATE WHILE BLOCK
