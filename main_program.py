@@ -11,15 +11,10 @@ def main(argv=None):
         argv = sys.argv
     # TODO Uncomment later
     # fileName = argv[1]
-<<<<<<< HEAD
-    fileName = 'Rudi Test 1.rud'
 
-=======
     fileName = 'inputFile.rud'
     # fileName = 'Rudi_Test_1.rud'
-    
-	 
->>>>>>> refs/remotes/origin/master
+
     # Read from a file
     allLines = parseInputFile(fileName)
 

@@ -1,11 +1,6 @@
 # This file evaluates the control statements - if and while
 # NOTES:
-<<<<<<< HEAD
-#
-# If closing bracket missing, all statements will be considered as part of the block 
-=======
-# If closing bracket is missing, all statements will be considered as part of the block 
->>>>>>> refs/remotes/origin/master
+# If closing bracket is missing, all statements will be considered as part of the block
 
 from collections import namedtuple
 from collections import deque
@@ -86,11 +81,8 @@ def evaluateIf(queue, variables):
 	Line = queue.popleft()
 	ifBlockQ = deque()
 
-<<<<<<< HEAD
-	bracketCount = 0 #TODO
-=======
+
 	bracketCount = 0 # To keep track of nested loops
->>>>>>> refs/remotes/origin/master
 
 	while (bracketCount<=0):
 		# If ']' is not found till the end, throw an error
@@ -100,22 +92,17 @@ def evaluateIf(queue, variables):
 			queue.append(Line)
 			return (queue,variables)
 
-<<<<<<< HEAD
-=======
 		# Keep track of number of opening and closing brackets. Since if block's opening bracket was already checked outside the loop,
 		# the number of closing brackets will be 1 greater than the opening brackets. So when the count becomes 1, if block's closing
 		# bracket has been found
->>>>>>> refs/remotes/origin/master
 		if (Line.line)=='[':
 			bracketCount = bracketCount-1
 
 		elif (Line.line)==']':
 			bracketCount = bracketCount+1
 
-<<<<<<< HEAD
-=======
-		# once the closing bracket is found, do not add it to the if block queue and do not pop the program queue  
->>>>>>> refs/remotes/origin/master
+
+		# once the closing bracket is found, do not add it to the if block queue and do not pop the program queue
 		if bracketCount<=0:
 			ifBlockQ.append(Line)
 			Line = queue.popleft()
