@@ -2,6 +2,7 @@
 # NOTES:
 # Sowmya: expressionParser's queue is also assumed to be a deque 
 # Prof: Currently supports only control statements with '[' in next line with that as the only character in the line
+# If closing bracket missing, all statements will be considered as part of the black and error line number will be last line
 
 from collections import namedtuple
 from collections import deque
@@ -21,6 +22,7 @@ def evaluateIf(queue, variables):
 	# Get the string from the tuple
 	ifLine = Line.line
 	print ("ifLine: %s" %ifLine)
+	ifLineNumber = ifLine.number
 
 	# Convert to upper case for case insensitivity
 	ifLineUp = ifLine.upper()
@@ -59,8 +61,8 @@ def evaluateIf(queue, variables):
 
 	# Send to expression parser, get
 	ifExpQ = deque([ifExpression])
-	evaluatedQ = evaluateExpression(ifExpQ,variables)
-	verdict = evaluatedQ.popleft()
+	# evaluatedQ = evaluateExpression(ifExpQ,variables) <TODO> Uncomment later
+	verdict = False #evaluatedQ.popleft() <TODO> Uncomment later
 
 	
 	# CREATE IF BLOCK
@@ -72,60 +74,83 @@ def evaluateIf(queue, variables):
 	check = '['
 	if expression!=check:
 		print ("In line %d: Syntax error. Opening bracket missing for the if condition block" % (Line.number))
+		queue.append(Line)
 	else:
 		qIndex1 = 0
 	
 	# Search queue for ']'. Till it is found, dequeue every line and add it to ifBlockQ
 	check = ']'
 	Line = queue.popleft()
+	ifBlockQ = deque()
 	while (Line.line!= check):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
-			print ("In line %d: Syntax error. Closing bracket missing for the if condition block" % (Line.number)-1)#<TODO> Fix line number
+			print ("In line %d: Syntax error. Closing bracket missing for the if condition block" % ifLineNumber)
+			queue.append(Line)
+			return (queue,variables)
 			break
+		
 		ifBlockQ.append(Line)
 		Line = queue.popleft()
+		
+	# Evaluate the if block if verdict is true
+	if verdict is True: 
+		print ("verdict is true")
+		(_,variables) = programParser.evaluateLineByLine(ifBlockQ, variables)
 
 	# CREATE ELSE BLOCK
 	# Check if else block is present
-	Line = queue.popleft()
-	expression = Line.line
-	check = 'ELSE'
-	elseFlag = 0
-
-	if (expression==check):
-		elseFlag = 1
-		# Check for '['
-		# Get next line of the queue
+	try:
 		Line = queue.popleft()
 		expression = Line.line
-		check = '['
-		if expression!=check:
-			print ("In line %d: Syntax error. Opening bracket missing for the 'else' condition block" % (Line.number))
-		else:
-			qIndex1 = 0
-
-		# Search queue for ']'. Till it is found, dequeue every line and add it to elseBlockQ
-		check = ']'
-		Line = queue.popleft()
-		while (Line.line!= check):
-			# If ']' is not found till the end, throw an error
-			if ((Line.line).upper()== 'END'):
-				print ("In line %d: Syntax error. Closing bracket missing for the else condition block" % (Line.number)-1) #<TODO> Fix line number
-				break
-			elseBlockQ.append(Line)
+		
+		expressionUp = expression.upper()
+		# check = 'END'
+		# if check in expressionUp:
+		#	queue.append(Line)
+		#	return (queue,variables)
+			
+		check = 'ELSE'
+		elseFlag = 0
+		if (expressionUp==check):
+			elseFlag = 1
+			elseLineNumber = Line.number
+			# Check for '['
+			# Get next line of the queue
 			Line = queue.popleft()
+			expression = Line.line
+			check = '['
+			if expression!=check:
+				print ("In line %d: Syntax error. Opening bracket missing for the 'else' condition block" % (Line.number))
+			else:
+				qIndex1 = 0
+
+			# Search queue for ']'. Till it is found, dequeue every line and add it to elseBlockQ
+			elseBlockQ = deque()
+			check = ']'
+			Line = queue.popleft()
+			while (Line.line!= check):
+				# If ']' is not found till the end, throw an error
+				if ((Line.line).upper()== 'END'):
+					print ("In line %d: Syntax error. Closing bracket missing for the else condition block" % elseLineNumber) 
+					break
+				elseBlockQ.append(Line)
+				Line = queue.popleft()
+			
+			
+		else:
+			queue.append(Line)
+			return (queue, variables)
+			
+	except IndexError:
+		print ("Syntax error. 'End' is missing")
+		return (queue, variables)
 	
-	# Evaluate the if block if verdict is true
-	if verdict is True: 
-		(_,variables) = evaluateLineByLine(ifBlockQ, variables)
-	elif elseFlag==1:
-		(_,variables) = evaluateLineByLine(elseBlockQ, variables)
 	
+	if elseFlag==1 and verdict == False:
+		(_,variables) = programParser.evaluateLineByLine(elseBlockQ, variables)	
 	
-	
-	# Get the lines between '[' and ']' and send to. Throw error if brackets not present
-	
+		
 	return (queue, variables)
 
 # Evaluates the program block with the 'while' statements
@@ -136,12 +161,13 @@ def evaluateWhile(queue, variables):
 
 	# Get the first element of the queue
 	Line = queue.popleft() 
-	
+		
 	# Get the string from the tuple
 	whileLine = Line.line
+	whileLineNumber = Line.number
 
 	# Convert to upper case for case insensitivity
-	whileLine = whileLine.upper()
+	#whileLineUp = whileLine.upper()
 
 	# Check that it contains 'if'
 	# check = "WHILE"
@@ -171,8 +197,8 @@ def evaluateWhile(queue, variables):
 
 	# Send to expression parser to evaluate
 	whileExpQ = deque([whileExpression])
-	evaluatedQ = evaluateExpression(whileExpQ,variables)
-	verdict = evaluatedQ.popleft()
+	#evaluatedQ = evaluateExpression(whileExpQ,variables) <TODO> Uncomment later
+	verdict = True#evaluatedQ.popleft() <TODO> Uncomment later
 
 	# CREATE WHILE BLOCK
 
@@ -186,22 +212,27 @@ def evaluateWhile(queue, variables):
 	else:
 		qIndex1 = 0
 	
-	# Search queue for ']'. Till it is found, dequeue every line and add it to ifBlockQ
+	# Search queue for ']'. Till it is found, dequeue every line and add it to whileBlockQ
 	check = ']'
 	Line = queue.popleft()
+	whileBlockQ = deque()
 	while (Line.line!= check):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
-			print ("In line %d: Syntax error. Closing bracket missing for the while condition block" % (Line.number)-1) #<TODO> Fix line number
+			print ("In line %d: Syntax error. Closing bracket missing for the while condition block" % (whileLineNumber)) 
 			break
 		whileBlockQ.append(Line)
 		Line = queue.popleft()
-
+	counter = 0 # TODO - remove later
 	while verdict==True:
-		(_,variables) = evaluateLineByLine(whileBlockQ, variables) 
+		(_,variables) = programParser.evaluateLineByLine(whileBlockQ, variables) 
 		
 		# Send to expression parser to evaluate
 		whileExpQ = deque([whileExpression])
-		(evaluatedQ,variables) = evaluateExpression(whileExpQ,variables) 
-		verdict = evaluatedQ.popleft()	
-		return (queue, variables)
+		#(evaluatedQ,variables) = evaluateExpression(whileExpQ,variables) <TODO> Uncomment later
+		counter = counter+1
+		if (counter == 10):
+			verdict = False# evaluatedQ.popleft()	<TODO> Uncomment later
+
+		
+	return (queue, variables)

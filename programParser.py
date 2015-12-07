@@ -7,7 +7,9 @@ import re
 def evaluateLineByLine(program, variables):
     status = False
     queue = deque()
-
+	
+	
+	
     # Place all lines in a queue
     for ln in program:
        queue.append(ln)
