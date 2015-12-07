@@ -13,6 +13,10 @@ begin
 	print "Enter the factorial term:"
 	input n
 
+    x = n * 3 / ( 2 + 1 )
+    print "x = "
+    print x
+
 	if ( n :eq: 0 ) then
 
 	[

@@ -47,10 +47,10 @@ class Stack:
 
         # Returns the empty stack object if the stack is empty
         if(len(self.stack)==0):
-            errorFlag = True
-            return errorFlag, self.stack
-
-        # Return the 'top' element at the end of the deque
-        return errorFlag, self.stack[-1]
+            return errorFlag
+        else:
+            topElement = self.stack[-1]
+            # Return the 'top' element at the end of the deque
+            return topElement
 
 
