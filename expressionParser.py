@@ -224,7 +224,15 @@ def infixToPostfix(infixExpression):
             # Add to the postfix list till an open bracket is found in the stack
             while topToken != '(':
                 postfixExpr.append(topToken)
-                topToken = opStack.pop()
+                if opStack:
+                    topToken = opStack.pop()
+                else:
+                    error = True
+                    break
+
+            # Break the loop if there is an error
+            if error:
+                break
 
         # Check if the token is an operator
         elif token == '*' or token == '/' or token == '+' or token == '-':
@@ -337,7 +345,7 @@ def performOperation(operator, operand1, operand2):
         return error, operand1
 
 # Check is a string is float
-def isfloat(x):
+def  isfloat(x):
     try:
         a = float(x)
     except ValueError:
@@ -346,7 +354,7 @@ def isfloat(x):
         return True
 
 # Check if a string is int
-def isint(x):
+def  isint(x):
     try:
         a = float(x)
         b = int(a)
@@ -354,3 +362,118 @@ def isint(x):
         return False
     else:
         return a == b
+
+# Computes a value given an expression
+def  doMath(expression, currLine, variables):
+
+    error = False
+    expression = expression.strip()
+
+    # Check for raw string
+    if expression.startswith('"') and expression.endswith('"'):
+        return error, expression
+
+    # Check for string variable
+    expression = expression.split()
+    if(len(expression) == 1):
+        for i in range(len(variables)):
+            if expression[0].upper() == variables[i].name:
+
+                # Check if the variable is of string type
+                if variables[i].type == "STRING":
+
+                    # If the variable has a value field
+                    if variables[i].value:
+                        return error, variables[i].value
+
+                    # Uninitialized value is found
+                    else:
+                        error = True
+                        print("Error in line " + str(currLine.number) + ": " + currLine.line)
+                        print("Description: \"" + variables[i].name + "\" has not been initialized with a value")
+                        return error, -1
+
+    # Check if all elements of expression are valid
+    for idx, token in enumerate(expression):
+
+        # Check if the token is a variable
+        variableFound = False
+        for i in range(len(variables)):
+            if token.upper() == variables[i].name:
+
+                # Check if the variable is not of string type
+                if variables[i].type == "STRING":
+                    error = True
+                    print("Error in line " + str(currLine.number) + ": " + currLine.line)
+                    print("Description: Invalid variable \"" + token + "\" of string type present in the equation")
+                    return error, -1
+
+                # If the variable has a value field
+                elif variables[i].value:
+                    expression[idx] = variables[i].value
+                    variableFound = True
+                    break
+
+                # Uninitialized value is found
+                else:
+                    error = True
+                    print("Error in line " + str(currLine.number) + ": " + currLine.line)
+                    print("Description: \"" + token + "\" has not been initialized with a value")
+                    return error, -1
+
+        # Check if the token is a number
+        if variableFound:
+            continue
+
+        # Check if the token is a number
+        elif isfloat(token):
+            continue
+
+        # Check if the token is a '+'
+        elif token == "+":
+            continue
+
+        # Check if the token is a '-'
+        elif token == "-":
+            continue
+
+        # Check if the token is a '/'
+        elif token == "/":
+            continue
+
+        # Check if the token is a '*'
+        elif token == "*":
+            continue
+
+        # Check if the token is a '('
+        elif token == "(":
+            continue
+
+        # Check if the token is a ')'
+        elif token == ")":
+            continue
+
+        # Invalid Token Error
+        else:
+            error = True
+            print("Error in line " + str(currLine.number) + ": " + currLine.line)
+            print("Description: \"" + token + "\" is an invalid token")
+            return error, -1
+
+    # Convert the infix RHS expression to postfix notation
+    postfixExpr = infixToPostfix(expression)
+
+    # Check for valid conversion
+    if not postfixExpr:
+        error = True
+        print("Error in line " + str(currLine.number) + ": " + currLine.line)
+        print("Description: Invalid element found in the expression")
+        return error, -1
+
+    # Evaluate the postfix expression
+    error, value = evaluatePostfix(postfixExpr, currLine)
+    # Check for an error
+    if error:
+        return error, -1
+
+    return error, value
