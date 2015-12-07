@@ -1,0 +1,81 @@
+/* Rudi Test Program*/
+
+pRogram
+DeCs 
+
+
+[     
+     	intEger x
+INTEGER  			y
+integer z
+
+	string	string
+	
+]
+	/*ignore this*/
+	begin
+
+PrINT df "This is my terrible "test" program, with "test" in quotes(")"
+
+X = 2 + 3 * 4 + 5  /5
+		y     =	5
+
+ 	iF ( x 	:eq: y )
+
+[
+print "x is equal to y" sdfg
+z = 10
+	print "multiple  &
+	line print statement with a big space in the middle"
+]
+
+else
+[
+  print "x does not equal y"  /*random comment*/
+
+
+]
+
+
+while ( z :ge: 5)
+[
+	z = z -1
+	x = x * 2
+]
+
+		if ( x :gt: 159 ^	x :le: 160)
+		[
+			print "the answer is correct"	
+		]
+else
+[
+print "the anser is wrong"
+]
+
+print string
+print cR
+print string
+
+input &
+y
+	print "Y =:"
+print  y
+
+	  
+print	"done!"
+
+	eNd
+
+/* This should print: 
+	This is my terrible "test" program, with "test" in quotes(")  -print error
+	x is equal to y  -print error
+	multiple         line print statement with a big space in the middle"
+	the answer is correct
+	string
+
+	string
+	Y =:
+	Y
+	done!
+*/
+

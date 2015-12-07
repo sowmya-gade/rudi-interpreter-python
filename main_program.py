@@ -11,7 +11,7 @@ def main(argv=None):
         argv = sys.argv
     # TODO: Uncomment finally
     # fileName = argv[1]
-    fileName = 'inputFile.rud'
+    fileName = 'Rudi Test 1.rud'
 
     # Read from a file
     allLines = parseInputFile(fileName)
