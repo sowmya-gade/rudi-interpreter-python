@@ -11,8 +11,9 @@ def main(argv=None):
         argv = sys.argv
     # TODO: Uncomment finally
     # fileName = argv[1]
-    fileName = 'inputFile.rud'
-
+    # fileName = 'inputFile.rud'
+    fileName = 'Rudi_Test_1.rud'
+	 
     # Read from a file
     allLines = parseInputFile(fileName)
 
@@ -30,10 +31,8 @@ def main(argv=None):
         return
 
     # Pass through program parser
-    program, variables = programParser.evaluateLineByLine(program,variables)
+    program, variables = evaluateLineByLine(program,variables)
 
-
-    # Return error or success
 
 
     return

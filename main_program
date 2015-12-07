@@ -1,0 +1,40 @@
+
+import sys
+import readFile as read
+import structureParser as struct
+import programParser as program
+
+def main(argv=None):
+
+    # Get the name of the input file from the command line
+    if argv is None:
+        argv = sys.argv
+    # TODO: Uncomment finally
+    # fileName = argv[1]
+    fileName = 'Rudi Test 1.txt'
+
+    # Read from a file
+    allLines = read.parseInputFile(fileName)
+
+    # Check for an error
+    if not allLines:
+        return
+
+    # Pass through structure parser
+    program, variables = struct.parseStructure(allLines)
+    if not program:
+        return
+
+
+    # Pass through program parser
+
+
+    # Return error or success
+
+
+    return
+
+
+
+if __name__ == '__main__':
+    sys.exit(main())

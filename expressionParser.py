@@ -29,7 +29,7 @@ def evaluateExpression(queue, variables):
         rhs = equation[1].split()
 
         # Check for a single variable on the left hand side
-        if not len(lhs) == 1:
+        if not lhs:
             print("Error in line " + str(currLine.number) + ": " + currLine.line)
             print("Description: Invalid assignment expression")
             return queue, variables

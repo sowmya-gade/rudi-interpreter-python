@@ -1,2 +1,0 @@
-https://docs.python.org/3.1/tutorial/datastructures.html
-http://stackoverflow.com/questions/18520642/python3-replacing-a-dynamically-chosen-namedtuple-field

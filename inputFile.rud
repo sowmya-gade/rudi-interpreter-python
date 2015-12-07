@@ -19,14 +19,18 @@ begin
 		fact = 1
 	]
 	else
-	[ 	x = 1
+	[
+	    x = 1
 		fact = 1
-		while (n :le: x)
+
+		while (n :gt: x)
 		[
 			x = x + 1
 			fact = fact * x
+
 		]
 	]
+
 
 	print n
 	print "! = "
