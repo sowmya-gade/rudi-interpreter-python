@@ -18,6 +18,7 @@ def  parseStructure(allLines):
     # Get the program block
     program = getProgram(allLines)
 
+
     # Unit Test - Print variables
     for variable in variables:
         print(variable.type + ' ' + variable.name)
