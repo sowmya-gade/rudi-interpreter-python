@@ -20,15 +20,18 @@ def main(argv=None):
     if not allLines:
         return
 
+    # Check for an error
+    if not allLines:
+        return
+
     # Pass through structure parser
     program, variables = parseStructure(allLines)
     if not program:
         return
 
     # Pass through program parser
+    program, variables = evaluateLineByLine(program,variables)
 
-
-    # Return error or success
 
 
     return

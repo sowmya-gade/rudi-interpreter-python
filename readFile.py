@@ -92,6 +92,7 @@ def removeComments(allLines):
 
         # For no close bracket found
         if not closeBracketFound:
+            lengthlines.append(lengthChars)
             line.append(lineIdx)
             lengthChars = 1
             startIdx.append(0)
