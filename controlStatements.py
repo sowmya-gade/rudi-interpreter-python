@@ -1,7 +1,11 @@
 # This file evaluates the control statements - if and while
 # NOTES:
+<<<<<<< HEAD
 #
 # If closing bracket missing, all statements will be considered as part of the block 
+=======
+# If closing bracket is missing, all statements will be considered as part of the block 
+>>>>>>> refs/remotes/origin/master
 
 from collections import namedtuple
 from collections import deque
@@ -26,39 +30,42 @@ def evaluateIf(queue, variables):
 	# Throw an error if line doesn't have 'then'
 	check = "THEN"
 	if check not in ifLineUp:
-		print("Error in line " + ifLineNumber + ": " + ifLine)
+
+		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
 		print("Description: Keyword 'then' is missing")
 
 	# Throw an error if line doesn't have '(' followed by ')'
 	# Check for '('
 	check = '('
 	if check not in ifLine:
-		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
 		print("Description: Opening bracket missing for the if condition expression")
 	else:
 		index1 = ifLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in ifLine:
-		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
 		print("Description: Closing bracket missing for the if condition expression")
 	
 	else:
 		index2 = ifLine.index(check)
 	# Check the order
 	if index2<index1:
-		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
 		print("Description: Brackets incorrect for the if condition expression")
-	
 
 	# Get the expression between '(' and ')' 
 	ifExpression = ifLine[index1+1:index2]
 	
 	# Send the expression to the boolean expression evaluator
 	verdict = evaluateBooleanExpression(ifExpression,Line,variables)
+	
 
 	# Check for any other garbage
 	# <TODO> string.replace
+
+	# TRack brackets within the if/while expressions 
 
 	
 	# CREATE IF BLOCK	
@@ -67,7 +74,7 @@ def evaluateIf(queue, variables):
 	expression = Line.line
 	check = '['
 	if expression!=check:
-		print("Error in line " + Line.number + ": " + Line.line)
+		print("Error in line " + str(Line.number) + ": " + Line.line)
 		print("Description: Opening bracket missing for the if condition block")
 		queue.append(Line)
 	else:
@@ -79,29 +86,43 @@ def evaluateIf(queue, variables):
 	Line = queue.popleft()
 	ifBlockQ = deque()
 
+<<<<<<< HEAD
 	bracketCount = 0 #TODO
+=======
+	bracketCount = 0 # To keep track of nested loops
+>>>>>>> refs/remotes/origin/master
 
 	while (bracketCount<=0):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
-			print("Error in line " + ifLineNumber + ": " + ifLine)
+			print("Error in line " + str(ifLineNumber) + ": " + ifLine)
 			print("Description: Closing bracket missing for or within the if condition block")
 			queue.append(Line)
 			return (queue,variables)
 
+<<<<<<< HEAD
+=======
+		# Keep track of number of opening and closing brackets. Since if block's opening bracket was already checked outside the loop,
+		# the number of closing brackets will be 1 greater than the opening brackets. So when the count becomes 1, if block's closing
+		# bracket has been found
+>>>>>>> refs/remotes/origin/master
 		if (Line.line)=='[':
 			bracketCount = bracketCount-1
 
 		elif (Line.line)==']':
 			bracketCount = bracketCount+1
 
+<<<<<<< HEAD
+=======
+		# once the closing bracket is found, do not add it to the if block queue and do not pop the program queue  
+>>>>>>> refs/remotes/origin/master
 		if bracketCount<=0:
 			ifBlockQ.append(Line)
 			Line = queue.popleft()
 			
 		
 	# Evaluate the if block if verdict is true
-	if verdict is True: 
+	if verdict: 
 		(_,variables) = programParser.evaluateLineByLine(ifBlockQ, variables)
 
 	# CREATE ELSE BLOCK
@@ -128,7 +149,7 @@ def evaluateIf(queue, variables):
 		expression = Line.line
 		check = '['
 		if expression!=check:
-			print("Error in line " + Line.number + ": " + expression)
+			print("Error in line " + str(Line.number) + ": " + expression)
 			print("Description: Opening bracket missing for the else condition block")
 		else:
 			qIndex1 = 0
@@ -143,7 +164,7 @@ def evaluateIf(queue, variables):
 		while (bracketCount<=0 ):
 			# If ']' is not found till the end, throw an error
 			if ((Line.line).upper()== 'END'):
-				print("Error in line " + elseLineNumber + ": " + elseLine)
+				print("Error in line " + str(elseLineNumber) + ": " + elseLine)
 				print("Description: Closing bracket missing for or within the else condition block")
 				queue.append(Line)
 				return (queue,variables)
@@ -191,20 +212,20 @@ def evaluateWhile(queue, variables):
 	# Check for '('
 	check = '('
 	if check not in whileLine:
-		print("Error in line " + whileLineNumber + ": " + whileLine)
+		print("Error in line " + str(whileLineNumber) + ": " + whileLine)
 		print("Description: Opening bracket missing for the while condition expression")
 	else:
 		index1 = whileLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in whileLine:
-		print("Error in line " + whileLineNumber + ": " + whileLine)
+		print("Error in line " + str(whileLineNumber) + ": " + whileLine)
 		print("Description: Closing bracket missing for the while condition expression")
 	else:
 		index2 = whileLine.index(check)
 	# Check the order
 	if index2<index1:
-		print("Error in line " + whileLineNumber + ": " + whileLine)
+		print("Error in line " + str(whileLineNumber) + ": " + whileLine)
 		print("Description: Brackets incorrect for the while condition expression")
 
 
@@ -212,7 +233,6 @@ def evaluateWhile(queue, variables):
 	whileExpression = whileLine[index1+1:index2]
 
 	# Send to expression parser to evaluate
-	# whileExpQ = deque([whileExpression])
 	verdict = evaluateBooleanExpression(whileExpression, Line, variables)
 	
 	# CREATE WHILE BLOCK
@@ -223,8 +243,7 @@ def evaluateWhile(queue, variables):
 	expression = Line.line
 	check = '['
 	if expression!=check:
-		print ("In line %d: Syntax error. Opening bracket missing for the while condition block" % (Line.number))
-		print("Error in line " + Line.number + ": " + Line)
+		print("Error in line " + str(Line.number) + ": " + Line)
 		print("Description: Opening bracket missing for the while condition block")		
 	else:
 		qIndex1 = 0
@@ -239,7 +258,7 @@ def evaluateWhile(queue, variables):
 		# If ']' is not found till the end, throw an error
 		
 		if ((Line.line).upper()== 'END'):
-			print("Error in line " + whileLineNumber + ": " + whileLine)
+			print("Error in line " + str(whileLineNumber) + ": " + whileLine)
 			print("Description: Closing bracket missing for or within the while condition block")
 			queue.append(Line)
 			return (queue,variables)

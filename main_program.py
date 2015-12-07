@@ -9,10 +9,17 @@ def main(argv=None):
     # Get the name of the input file from the command line
     if argv is None:
         argv = sys.argv
-    # TODO: Uncomment finally
+    # TODO Uncomment later
     # fileName = argv[1]
+<<<<<<< HEAD
     fileName = 'Rudi Test 1.rud'
 
+=======
+    fileName = 'inputFile.rud'
+    # fileName = 'Rudi_Test_1.rud'
+    
+	 
+>>>>>>> refs/remotes/origin/master
     # Read from a file
     allLines = parseInputFile(fileName)
 

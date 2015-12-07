@@ -44,6 +44,7 @@ def evaluateTokenByToken(token, queue, variables):
     else:
         print("Error in line " + str(queue[0].number) + ": first word is not recognized")
         queue.popleft()
-
+        
+        
     # You may have to update the variables as well after the evaluations
     return variables
