@@ -469,11 +469,9 @@ def  doMath(expression, currLine, variables):
         print("Error in line " + str(currLine.number) + ": " + currLine.line)
         print("Description: Invalid element found in the expression")
         return error, -1
-    print(expression)
-    print(postfixExpr)
+
     # Evaluate the postfix expression
     error, value = evaluatePostfix(postfixExpr, currLine)
-
     # Check for an error
     if error:
         return error, -1
