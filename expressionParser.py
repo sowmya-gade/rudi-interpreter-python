@@ -66,9 +66,9 @@ def evaluateExpression(queue, variables):
                         return queue, variables
 
                     # If the variable has a value field
-                    elif variables[i].value:
+                    elif variables[i].initFlag:
                         value = variables[i].value
-                        variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=value,type=variables[lhsVariableIdx].type)
+                        variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=value,type=variables[lhsVariableIdx].type, initFlag=True)
                         return queue, variables
 
                     # Uninitialized value is found
@@ -79,7 +79,7 @@ def evaluateExpression(queue, variables):
 
             # Check for quotes
             if rhs[0]=="\"" and rhs[-1]=="\"":
-                variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=rhs,type=variables[lhsVariableIdx].type)
+                variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace (name=variables[lhsVariableIdx].name,value=rhs,type=variables[lhsVariableIdx].type, initFlag=True)
                 return queue, variables
 
             # Invalid initialization error
@@ -106,7 +106,7 @@ def evaluateExpression(queue, variables):
                             return queue, variables
 
                         # If the variable has a value field
-                        elif variables[i].value:
+                        elif variables[i].initFlag:
                             rhs[idx] = variables[i].value
                             variableFound = True
                             break
@@ -178,7 +178,7 @@ def evaluateExpression(queue, variables):
                     value = int(value)
 
                 # Update value of variable
-                variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace(name=variables[lhsVariableIdx].name, value=value, type=variables[lhsVariableIdx].type)
+                variables[lhsVariableIdx] = variables[lhsVariableIdx]._replace(name=variables[lhsVariableIdx].name, value=value, type=variables[lhsVariableIdx].type, initFlag=True)
 
 
     # Return the updated queue and variables
@@ -383,7 +383,7 @@ def  doMath(expression, currLine, variables):
                 if variables[i].type == "STRING":
 
                     # If the variable has a value field
-                    if variables[i].value:
+                    if variables[i].initFlag:
                         return error, variables[i].value
 
                     # Uninitialized value is found
@@ -409,7 +409,7 @@ def  doMath(expression, currLine, variables):
                     return error, -1
 
                 # If the variable has a value field
-                elif variables[i].value:
+                elif variables[i].initFlag:
                     expression[idx] = variables[i].value
                     variableFound = True
                     break

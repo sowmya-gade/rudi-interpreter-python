@@ -51,8 +51,8 @@ def  checkForDecs(allLines):
     # List of variables
     variables = []
 
-    # Each variable is defined with - name, value and type
-    Variable = namedtuple('Variable', 'name value type')
+    # Each variable is defined with - name, value, type and initialization flag
+    Variable = namedtuple('Variable', 'name value type initFlag')
 
     # Check for decs
     decsLine = -1
@@ -134,7 +134,7 @@ def  checkForDecs(allLines):
             name = words[1].upper()
 
             # Add the variable to the list
-            variables.append(Variable(name=name, value='', type=type))
+            variables.append(Variable(name=name, value='', type=type, initFlag=False))
 
             # If extra information is found
             if len(words) > 2:
