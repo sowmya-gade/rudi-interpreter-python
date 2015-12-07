@@ -38,6 +38,7 @@ def evaluateTokenByToken(token, queue, variables):
 
     elif any(v.name.upper() == token for v in variables):  #if token is a variable
         #print("token is variable: " + token)
+        queue[0] = queue[0]._replace(line= token + queue[0].line)
         evaluateExpression(queue, variables)
 
     else:

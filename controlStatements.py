@@ -21,8 +21,7 @@ def evaluateIf(queue, variables):
 	
 	# Get the string from the tuple
 	ifLine = Line.line
-	print ("ifLine: %s" %ifLine)
-	ifLineNumber = ifLine.number
+	ifLineNumber = Line.number
 
 	# Convert to upper case for case insensitivity
 	ifLineUp = ifLine.upper()
@@ -57,7 +56,6 @@ def evaluateIf(queue, variables):
 
 	# Get the expression between '(' and ')' 
 	ifExpression = ifLine[index1+1:index2]
-	print ("ifExpression: %s" %ifExpression)
 
 	# Send to expression parser, get
 	ifExpQ = deque([ifExpression])
@@ -124,19 +122,32 @@ def evaluateIf(queue, variables):
 			else:
 				qIndex1 = 0
 
+
 			# Search queue for ']'. Till it is found, dequeue every line and add it to elseBlockQ
 			elseBlockQ = deque()
 			check = ']'
-			Line = queue.popleft()
-			while (Line.line!= check):
+
+			bracketCount = 0
+			while (bracketCount<=0 ):
 				# If ']' is not found till the end, throw an error
 				if ((Line.line).upper()== 'END'):
 					print ("In line %d: Syntax error. Closing bracket missing for the else condition block" % elseLineNumber) 
 					break
-				elseBlockQ.append(Line)
 				Line = queue.popleft()
+
+
+
+				if(Line.line=='['):
+					bracketCount = bracketCount-1
+
+				elif (Line.line==']'):
+					bracketCount = bracketCount+1
+
+				if (bracketCount<=0):
+					elseBlockQ.append(Line)
+
 			
-			
+
 		else:
 			queue.append(Line)
 			return (queue, variables)
@@ -194,7 +205,7 @@ def evaluateWhile(queue, variables):
 	whileExpression = whileLine[index1+1:index2]
 
 	# Send to expression parser to evaluate
-	whileExpQ = deque([whileExpression])
+	# whileExpQ = deque([whileExpression])
 	verdict = evaluateBooleanExpression(whileExpression, Line, variables)
 	
 	# CREATE WHILE BLOCK
@@ -226,7 +237,7 @@ def evaluateWhile(queue, variables):
 		
 		# Send to expression parser to evaluate
 		whileExpQ = deque([whileExpression])
-		#(evaluatedQ,variables) = evaluateExpression(whileExpQ,variables) <TODO> Uncomment later
+		verdict = evaluateBooleanExpression(whileExpression, Line, variables) #<TODO> Uncomment later
 		counter = counter+1
 		if (counter == 10):
 			verdict = False# evaluatedQ.popleft()	<TODO> Uncomment later

@@ -244,11 +244,11 @@ def evaluateAfterAND (exp,Line,variables):
 
 	return result,errorFlag
 
-'''Line = namedtuple('Line', 'line number')
-expression = " 1 ^ 3 ^ | 4  "
-Line.line = "if (blah) "
-Line.number = 1
-
-value = evaluateBooleanExpression(expression, Line, [])
-print (value)'''
+# Line = namedtuple('Line', 'line number')
+# expression = " 2 :gt: 3  "
+# Line.line = "if (blah) "
+# Line.number = 1
+#
+# value = evaluateBooleanExpression(expression, Line, [])
+# print (value)
 	

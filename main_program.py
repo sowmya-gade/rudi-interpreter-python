@@ -30,10 +30,8 @@ def main(argv=None):
         return
 
     # Pass through program parser
-    program, variables = programParser.evaluateLineByLine(program,variables)
+    program, variables = evaluateLineByLine(program,variables)
 
-
-    # Return error or success
 
 
     return
