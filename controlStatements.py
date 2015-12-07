@@ -9,11 +9,11 @@ from collections import deque
 
 from expressionParser import evaluateExpression
 import programParser
+from evaluateBexpression import evaluateBooleanExpression
 
 # Evaluates the program block with the 'if' statements
 def evaluateIf(queue, variables):
-	print ("I am the mighty IfEvaluator. Why did you call me?")
-    # Return the updated queue
+	# Return the updated queue
     # You may have to update the variables as well after the evaluations
 
 	# Get the first element of the queue
@@ -61,8 +61,7 @@ def evaluateIf(queue, variables):
 
 	# Send to expression parser, get
 	ifExpQ = deque([ifExpression])
-	# evaluatedQ = evaluateExpression(ifExpQ,variables) <TODO> Uncomment later
-	verdict = False #evaluatedQ.popleft() <TODO> Uncomment later
+	verdict = evaluateBooleanExpression(ifExpression,Line,variables)
 
 	
 	# CREATE IF BLOCK
@@ -155,8 +154,7 @@ def evaluateIf(queue, variables):
 
 # Evaluates the program block with the 'while' statements
 def evaluateWhile(queue, variables):
-	print ("I am the mighty whileEvaluator. Why did you call me?")
-    # Return the updated queue
+	# Return the updated queue
     # You may have to update the variables as well after the evaluations
 
 	# Get the first element of the queue
@@ -197,9 +195,8 @@ def evaluateWhile(queue, variables):
 
 	# Send to expression parser to evaluate
 	whileExpQ = deque([whileExpression])
-	#evaluatedQ = evaluateExpression(whileExpQ,variables) <TODO> Uncomment later
-	verdict = True#evaluatedQ.popleft() <TODO> Uncomment later
-
+	verdict = evaluateBooleanExpression(whileExpression, Line, variables)
+	
 	# CREATE WHILE BLOCK
 
 	# Check for '['
