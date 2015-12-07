@@ -11,10 +11,10 @@ def main(argv=None):
         argv = sys.argv
     # TODO Uncomment later
     # fileName = argv[1]
+
     fileName = 'inputFile.rud'
     # fileName = 'Rudi_Test_1.rud'
-    
-	 
+
     # Read from a file
     allLines = parseInputFile(fileName)
 

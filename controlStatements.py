@@ -1,6 +1,6 @@
 # This file evaluates the control statements - if and while
 # NOTES:
-# If closing bracket is missing, all statements will be considered as part of the block 
+# If closing bracket is missing, all statements will be considered as part of the block
 
 from collections import namedtuple
 from collections import deque
@@ -81,6 +81,7 @@ def evaluateIf(queue, variables):
 	Line = queue.popleft()
 	ifBlockQ = deque()
 
+
 	bracketCount = 0 # To keep track of nested loops
 
 	while (bracketCount<=0):
@@ -90,7 +91,6 @@ def evaluateIf(queue, variables):
 			print("Description: Closing bracket missing for or within the if condition block")
 			queue.append(Line)
 			return (queue,variables)
-			break
 
 		# Keep track of number of opening and closing brackets. Since if block's opening bracket was already checked outside the loop,
 		# the number of closing brackets will be 1 greater than the opening brackets. So when the count becomes 1, if block's closing
@@ -101,7 +101,8 @@ def evaluateIf(queue, variables):
 		elif (Line.line)==']':
 			bracketCount = bracketCount+1
 
-		# once the closing bracket is found, do not add it to the if block queue and do not pop the program queue  
+
+		# once the closing bracket is found, do not add it to the if block queue and do not pop the program queue
 		if bracketCount<=0:
 			ifBlockQ.append(Line)
 			Line = queue.popleft()
@@ -128,8 +129,6 @@ def evaluateIf(queue, variables):
 	if (elseLineUp==check):
 		elseFlag = 1
 		elseLineNumber = Line.number
-
-		
 		
 		# Check for '['
 		# Get next line of the queue

@@ -3,6 +3,7 @@
 
 from collections import deque
 from collections import namedtuple
+import Stack
 
 # Parse the expression line of the program
 def evaluateExpression(queue, variables):
@@ -198,7 +199,7 @@ def infixToPostfix(infixExpression):
     precedence["("] = 1
 
     # Stack for the operators
-    opStack = deque()
+    opStack = Stack.Stack()
 
     # Postfix Expresssion list
     postfixExpr = []
@@ -215,18 +216,19 @@ def infixToPostfix(infixExpression):
 
         # Push token onto the stack if it is an open bracket
         elif token == '(':
-            opStack.append(token)
+            opStack.pushStack(token)
 
         # Pop token from the stack if it is an close bracket
         elif token == ')':
-            topToken = opStack.pop()
+            emptyStack, topToken = opStack.popStack()
 
             # Add to the postfix list till an open bracket is found in the stack
             while topToken != '(':
                 postfixExpr.append(topToken)
-                if opStack:
-                    topToken = opStack.pop()
-                else:
+
+                # Check if the operator stack is empty
+                emptyStack, topToken = opStack.popStack()
+                if emptyStack:
                     error = True
                     break
 
@@ -237,18 +239,16 @@ def infixToPostfix(infixExpression):
         # Check if the token is an operator
         elif token == '*' or token == '/' or token == '+' or token == '-':
 
-            # If the stack is not empty
-            if opStack:
-                # Pop operators till a lower precedence operator is encountered in the stack
-                while opStack and (precedence[opStack[-1]] >= precedence[token]):
-                      postfixExpr.append(opStack.pop())
+            # Pop operators till a lower precedence operator is encountered in the stack
+            while not opStack.isEmpty() and (precedence[opStack.peekStack()] >= precedence[token]):
+                errorFlag, popElement = opStack.popStack()
+                postfixExpr.append(popElement)
 
             # Add the operator to the stack
-            opStack.append(token)
+            opStack.pushStack(token)
 
         # Else - Invalid token found
         else:
-            print("Description: Invalid element found in the expression")
             error = True
             break
 
@@ -256,8 +256,9 @@ def infixToPostfix(infixExpression):
     if not error:
 
         # Append all remaining operators in the stack
-        while opStack:
-            postfixExpr.append(opStack.pop())
+        while not opStack.isEmpty():
+            errorFlag, popElement = opStack.popStack()
+            postfixExpr.append(popElement)
 
         # Return the postfix expression
         return postfixExpr
@@ -271,7 +272,7 @@ def infixToPostfix(infixExpression):
 def  evaluatePostfix(postfixExpr, currLine):
 
     # Create Stack - for the the operands
-    operandStack = deque()
+    operandStack = Stack.Stack()
 
     # Error flag
     error = False
@@ -283,13 +284,13 @@ def  evaluatePostfix(postfixExpr, currLine):
         if isint(token) or isfloat(token):
 
             # Push onto the stack
-            operandStack.append(float(token))
+            operandStack.pushStack(float(token))
 
         # Pop to operands from the stack
         else:
-            if len(operandStack) > 1:
-                operand2 = operandStack.pop()
-                operand1 = operandStack.pop()
+            if operandStack.numElements() > 1:
+                errorFlag, operand2 = operandStack.popStack()
+                errorFlag, operand1 = operandStack.popStack()
 
                 # Perform the operation
                 error, result = performOperation(token,operand1,operand2)
@@ -299,7 +300,8 @@ def  evaluatePostfix(postfixExpr, currLine):
                     break
 
                 # Push the result onto the stack
-                operandStack.append(result)
+                operandStack.pushStack(result)
+
             else:
                 print("Error in line " + str(currLine.number) + ": " + currLine.line)
                 print("Description: Incorrect equation")
@@ -309,9 +311,10 @@ def  evaluatePostfix(postfixExpr, currLine):
     # Return the appropriate value
     if error:
         return error, -1
-    elif len(operandStack) == 1:
+    elif operandStack.numElements() == 1:
         # Return the last value in the stack
-        return error, operandStack.pop()
+        errorFlag, finalResult = operandStack.popStack()
+        return error, finalResult
     else:
         print("Error in line " + str(currLine.number) + ": " + currLine.line)
         print("Description: Incorrect equation")
