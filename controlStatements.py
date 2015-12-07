@@ -1,8 +1,7 @@
 # This file evaluates the control statements - if and while
 # NOTES:
-# Sowmya: expressionParser's queue is also assumed to be a deque 
-# Prof: Currently supports only control statements with '[' in next line with that as the only character in the line
-# If closing bracket missing, all statements will be considered as part of the black and error line number will be last line
+# 
+# If closing bracket missing, all statements will be considered as part of the block 
 
 from collections import namedtuple
 from collections import deque
@@ -13,84 +12,94 @@ from evaluateBexpression import evaluateBooleanExpression
 
 # Evaluates the program block with the 'if' statements
 def evaluateIf(queue, variables):
-	# Return the updated queue
-    # You may have to update the variables as well after the evaluations
-
+	# IF LINE SYNTAX CHECK
 	# Get the first element of the queue
 	Line = queue.popleft() 
 	
 	# Get the string from the tuple
 	ifLine = Line.line
-	print ("ifLine: %s" %ifLine)
-	ifLineNumber = ifLine.number
+	ifLineNumber = Line.number
 
 	# Convert to upper case for case insensitivity
 	ifLineUp = ifLine.upper()
 
-	# Check that it contains 'if'
-	# check = "IF"
-	# if check not in ifLineUp: 
-	
-
 	# Throw an error if line doesn't have 'then'
 	check = "THEN"
 	if check not in ifLineUp:
-		print ("In line %d: Keyword 'then' is missing." % (Line.number))
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Description: Keyword 'then' is missing")
 
 	# Throw an error if line doesn't have '(' followed by ')'
 	# Check for '('
 	check = '('
 	if check not in ifLine:
-		print ("In line %d: Syntax error. Opening bracket missing for the if condition expression" % (Line.number))
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Description: Opening bracket missing for the if condition expression")
 	else:
 		index1 = ifLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in ifLine:
-		print ("In line %d: Syntax error. Closing bracket missing for the if condition expression" % (Line.number))
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Description: Closing bracket missing for the if condition expression")
+	
 	else:
 		index2 = ifLine.index(check)
 	# Check the order
 	if index2<index1:
-		print ("In line %d: Syntax error. Brackets incorrect for the if condition expression" % (Line.number))
-
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+		print("Description: Brackets incorrect for the if condition expression")
+	
 
 	# Get the expression between '(' and ')' 
 	ifExpression = ifLine[index1+1:index2]
-	print ("ifExpression: %s" %ifExpression)
-
-	# Send to expression parser, get
-	ifExpQ = deque([ifExpression])
+	
+	# Send the expression to the boolean expression evaluator
 	verdict = evaluateBooleanExpression(ifExpression,Line,variables)
 
-	
-	# CREATE IF BLOCK
+	# Check for any other garbage
+	# <TODO> string.replace
 
+	
+	# CREATE IF BLOCK	
 	# Check for '['
-	# Get next line of the queue
 	Line = queue.popleft()
 	expression = Line.line
 	check = '['
 	if expression!=check:
-		print ("In line %d: Syntax error. Opening bracket missing for the if condition block" % (Line.number))
+		print("Error in line " + Line.number + ": " + Line.line)
+		print("Description: Opening bracket missing for the if condition block")
 		queue.append(Line)
 	else:
 		qIndex1 = 0
+		
 	
 	# Search queue for ']'. Till it is found, dequeue every line and add it to ifBlockQ
 	check = ']'
 	Line = queue.popleft()
 	ifBlockQ = deque()
-	while (Line.line!= check):
+
+	bracketCount = 0 #TODO
+
+	while (bracketCount<=0):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
-			print ("In line %d: Syntax error. Closing bracket missing for the if condition block" % ifLineNumber)
+			print("Error in line " + ifLineNumber + ": " + ifLine)
+			print("Description: Closing bracket missing for or within the if condition block")
 			queue.append(Line)
 			return (queue,variables)
 			break
-		
-		ifBlockQ.append(Line)
-		Line = queue.popleft()
+
+		if (Line.line)=='[':
+			bracketCount = bracketCount-1
+
+		elif (Line.line)==']'
+			bracketCount = bracketCount+1
+
+		if bracketCount<=0:
+			ifBlockQ.append(Line)
+			Line = queue.popleft()
+			
 		
 	# Evaluate the if block if verdict is true
 	if verdict is True: 
