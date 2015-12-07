@@ -25,28 +25,44 @@ def evaluateIf(queue, variables):
 	# Throw an error if line doesn't have 'then'
 	check = "THEN"
 	if check not in ifLineUp:
+<<<<<<< HEAD
 		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
+=======
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Keyword 'then' is missing")
 
 	# Throw an error if line doesn't have '(' followed by ')'
 	# Check for '('
 	check = '('
 	if check not in ifLine:
+<<<<<<< HEAD
 		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
+=======
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Opening bracket missing for the if condition expression")
 	else:
 		index1 = ifLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in ifLine:
+<<<<<<< HEAD
 		print("Error in line " + str(ifLineNumber) + ": " + ifLine)
+=======
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Closing bracket missing for the if condition expression")
 	
 	else:
 		index2 = ifLine.index(check)
 	# Check the order
 	if index2<index1:
+<<<<<<< HEAD
 		print("Error in line " + str((ifLineNumber) + ": " + ifLine)
+=======
+		print("Error in line " + ifLineNumber + ": " + ifLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Brackets incorrect for the if condition expression")
 	
 
@@ -66,7 +82,11 @@ def evaluateIf(queue, variables):
 	expression = Line.line
 	check = '['
 	if expression!=check:
+<<<<<<< HEAD
 		print("Error in line " + str(Line.number) + ": " + Line.line)
+=======
+		print("Error in line " + Line.number + ": " + Line.line)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Opening bracket missing for the if condition block")
 		queue.append(Line)
 	else:
@@ -83,7 +103,11 @@ def evaluateIf(queue, variables):
 	while (bracketCount<=0):
 		# If ']' is not found till the end, throw an error
 		if ((Line.line).upper()== 'END'):
+<<<<<<< HEAD
 			print("Error in line " + str(ifLineNumber) + ": " + ifLine)
+=======
+			print("Error in line " + ifLineNumber + ": " + ifLine)
+>>>>>>> refs/remotes/origin/master
 			print("Description: Closing bracket missing for or within the if condition block")
 			queue.append(Line)
 			return (queue,variables)
@@ -134,7 +158,11 @@ def evaluateIf(queue, variables):
 		expression = Line.line
 		check = '['
 		if expression!=check:
+<<<<<<< HEAD
 			print("Error in line " + str(Line.number) + ": " + expression)
+=======
+			print("Error in line " + Line.number + ": " + expression)
+>>>>>>> refs/remotes/origin/master
 			print("Description: Opening bracket missing for the else condition block")
 		else:
 			qIndex1 = 0
@@ -149,7 +177,11 @@ def evaluateIf(queue, variables):
 		while (bracketCount<=0 ):
 			# If ']' is not found till the end, throw an error
 			if ((Line.line).upper()== 'END'):
+<<<<<<< HEAD
 				print("Error in line " + str(elseLineNumber) + ": " + elseLine)
+=======
+				print("Error in line " + elseLineNumber + ": " + elseLine)
+>>>>>>> refs/remotes/origin/master
 				print("Description: Closing bracket missing for or within the else condition block")
 				queue.append(Line)
 				return (queue,variables)
@@ -197,20 +229,32 @@ def evaluateWhile(queue, variables):
 	# Check for '('
 	check = '('
 	if check not in whileLine:
+<<<<<<< HEAD
 		print("Error in line " + str(whileLineNumber) + ": " + whileLine)
+=======
+		print("Error in line " + whileLineNumber + ": " + whileLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Opening bracket missing for the while condition expression")
 	else:
 		index1 = whileLine.index(check)
 	# Check for ')'
 	check = ')'
 	if check not in whileLine:
+<<<<<<< HEAD
 		print("Error in line " + str(whileLineNumber) + ": " + whileLine)
+=======
+		print("Error in line " + whileLineNumber + ": " + whileLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Closing bracket missing for the while condition expression")
 	else:
 		index2 = whileLine.index(check)
 	# Check the order
 	if index2<index1:
+<<<<<<< HEAD
 		print("Error in line " + str(whileLineNumber) + ": " + whileLine)
+=======
+		print("Error in line " + whileLineNumber + ": " + whileLine)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Brackets incorrect for the while condition expression")
 
 
@@ -230,7 +274,11 @@ def evaluateWhile(queue, variables):
 	check = '['
 	if expression!=check:
 		print ("In line %d: Syntax error. Opening bracket missing for the while condition block" % (Line.number))
+<<<<<<< HEAD
 		print("Error in line " + str(Line.number) + ": " + Line)
+=======
+		print("Error in line " + Line.number + ": " + Line)
+>>>>>>> refs/remotes/origin/master
 		print("Description: Opening bracket missing for the while condition block")		
 	else:
 		qIndex1 = 0
@@ -245,7 +293,11 @@ def evaluateWhile(queue, variables):
 		# If ']' is not found till the end, throw an error
 		
 		if ((Line.line).upper()== 'END'):
+<<<<<<< HEAD
 			print("Error in line " + str(whileLineNumber) + ": " + whileLine)
+=======
+			print("Error in line " + whileLineNumber + ": " + whileLine)
+>>>>>>> refs/remotes/origin/master
 			print("Description: Closing bracket missing for or within the while condition block")
 			queue.append(Line)
 			return (queue,variables)

@@ -51,19 +51,19 @@ def evaluateInput(queue, variables):
                     if variables[i].type == "INTEGER":
                         try:
                             val = int(eval(val))
-                            variables[i] = variables[i]._replace(value = val)
+                            variables[i] = variables[i]._replace(value = val, initFlag=True)
                             break
                         except:
                             print("Error, input cannot be cast as an integer.")
                     elif variables[i].type == "FLOAT":
                         try:
                             val = float(eval(val))
-                            variables[i] = variables[i]._replace(value = val)
+                            variables[i] = variables[i]._replace(value = val, initFlag=True)
                             break
                         except:
                             print("Error, input cannot be cast as a float.")
                     elif variables[i].type == "STRING":
-                            variables[i] = variables[i]._replace(value = val)  #incoming value is already a string
+                            variables[i] = variables[i]._replace(value = val, initFlag=True)  #incoming value is already a string
                             break
                     else:
                         print("Error in variables. " + variables[i].name + " variable data type stored incorrectly") # in case variables list is corrupted
