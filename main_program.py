@@ -13,8 +13,7 @@ def main(argv=None):
     fileName = argv[1]
     # fileName = 'inputFile.rud'
     # fileName = 'Rudi_Test_1.rud'
-    
-	 
+
     # Read from a file
     allLines = parseInputFile(fileName)
 
