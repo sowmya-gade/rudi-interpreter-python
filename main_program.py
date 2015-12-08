@@ -10,8 +10,8 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
     # TODO Uncomment later
-    # fileName = argv[1]
-    fileName = 'inputFile.rud'
+    fileName = argv[1]
+    # fileName = 'inputFile.rud'
     # fileName = 'Rudi_Test_1.rud'
     
 	 

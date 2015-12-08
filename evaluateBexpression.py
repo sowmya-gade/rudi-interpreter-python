@@ -88,11 +88,20 @@ def evaluateCondExp (exp,Line,variables):
 					print("Error in line " + str(Line.number) + ": " + Line.line)
 					print("Description: Invalid boolean expression")
 					return 0,1
+				# Check for NOT
+				NOTFlag = 0
+				if eachExp[0] == '~':
+					eachExp = eachExp[1:]
+					NOTFlag = 1
 				(errorFlag, value) = doMath(eachExp,Line,variables)
 				if errorFlag == 1:
 					return 0,1
 				else:
-					valueList.append(value)
+					if NOTFlag==1:
+						valueList.append(not value)
+					else:
+						valueList.append(value)
+						
 			if len(valueList)>2:
 				print("Error in line " + str(Line.number) + ": " + Line.line)
 				print("Description: Invalid boolean expression")
@@ -118,11 +127,20 @@ def evaluateCondExp (exp,Line,variables):
 					print("Description: Invalid boolean expression")
 					return 0,1
 
+				# Check for NOT
+				NOTFlag = 0
+				if eachExp[0] == '~':
+					eachExp = eachExp[1:]
+					NOTFlag = 1
 				(errorFlag, value) = doMath(eachExp,Line,variables)
 				if errorFlag == 1:
 					return 0,1
 				else:
-					valueList.append(value)
+					if NOTFlag==1:
+						valueList.append(not value)
+					else:
+						valueList.append(value)
+						
 			if len(valueList)>2:
 				print("Error in line " + str(Line.number) + ": " + Line.line)
 				print("Description: Invalid boolean expression")
@@ -147,11 +165,20 @@ def evaluateCondExp (exp,Line,variables):
 					print("Description: Invalid boolean expression")
 					return 0,1
 
+				# Check for NOT
+				NOTFlag = 0
+				if eachExp[0] == '~':
+					eachExp = eachExp[1:]
+					NOTFlag = 1
 				(errorFlag, value) = doMath(eachExp,Line,variables)
 				if errorFlag == 1:
 					return 0,1
 				else:
-					valueList.append(value)
+					if NOTFlag==1:
+						valueList.append(not value)
+					else:
+						valueList.append(value)
+						
 			if len(valueList)>2:
 				print("Error in line " + str(Line.number) + ": " + Line.line)
 				print("Description: Invalid boolean expression")
@@ -176,11 +203,20 @@ def evaluateCondExp (exp,Line,variables):
 					print("Description: Invalid boolean expression")
 					return 0,1
 
+				# Check for NOT
+				NOTFlag = 0
+				if eachExp[0] == '~':
+					eachExp = eachExp[1:]
+					NOTFlag = 1
 				(errorFlag, value) = doMath(eachExp,Line,variables)
 				if errorFlag == 1:
 					return 0,1
 				else:
-					valueList.append(value)
+					if NOTFlag==1:
+						valueList.append(not value)
+					else:
+						valueList.append(value)
+						
 			if len(valueList)>2:
 				print("Error in line " + str(Line.number) + ": " + Line.line)
 				print("Description: Invalid boolean expression")
@@ -205,11 +241,20 @@ def evaluateCondExp (exp,Line,variables):
 					print("Description: Invalid boolean expression")
 					return 0,1
 
+				# Check for NOT
+				NOTFlag = 0
+				if eachExp[0] == '~':
+					eachExp = eachExp[1:]
+					NOTFlag = 1
 				(errorFlag, value) = doMath(eachExp,Line,variables)
 				if errorFlag == 1:
 					return 0,1
 				else:
-					valueList.append(value)
+					if NOTFlag==1:
+						valueList.append(not value)
+					else:
+						valueList.append(value)
+						
 			if len(valueList)>2:
 				print("Error in line " + str(Line.number) + ": " + Line.line)
 				print("Description: Invalid boolean expression")
@@ -234,11 +279,20 @@ def evaluateCondExp (exp,Line,variables):
 					print("Description: Invalid boolean expression")
 					return 0,1
 
+				# Check for NOT
+				NOTFlag = 0
+				if eachExp[0] == '~':
+					eachExp = eachExp[1:]
+					NOTFlag = 1
 				(errorFlag, value) = doMath(eachExp,Line,variables)
 				if errorFlag == 1:
 					return 0,1
 				else:
-					valueList.append(value)
+					if NOTFlag==1:
+						valueList.append(not value)
+					else:
+						valueList.append(value)
+						
 			if len(valueList)>2:
 				print("Error in line " + str(Line.number) + ": " + Line.line)
 				print("Description: Invalid boolean expression")
@@ -253,20 +307,11 @@ def evaluateCondExp (exp,Line,variables):
 
 	if counter == 0:
 		(errorFlag,result) = doMath(exp,Line,variables)
-		# print ("doMath listens:" + exp)
-		# print ("doMath says:"+ str(result))
+		
 		if errorFlag == 1:
 			return 0,1
 		
 
 	return result,errorFlag
 
-# <TODO> Remove later
-# Line = namedtuple('Line', 'line number')
-# expression = " 2 :gt: 3  "
-# Line.line = "if (blah) "
-# Line.number = 1
-#
-# value = evaluateBooleanExpression(expression, Line, [])
-# print (value)
-	
+

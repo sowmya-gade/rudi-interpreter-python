@@ -231,7 +231,7 @@ def evaluateWhile(queue, variables):
 	expression = Line.line
 	check = '['
 	if expression!=check:
-		print("Error in line " + str(Line.number) + ": " + Line)
+		print("Error in line " + str(Line.number) + ": " + Line.line)
 		print("Description: Opening bracket missing for the while condition block")		
 	else:
 		qIndex1 = 0
